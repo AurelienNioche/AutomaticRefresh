@@ -10,18 +10,22 @@ Here is an important information that needs update...
 <table id ='myTable'>
     {% include "update.html" with time=time %}
 </table>
+<button onclick="refresh();">Refresh</button>
 
 </html>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"> </script>
 <script type="text/javascript">
-    $( document ).ready(function() {
-        setInterval(function(){
-            $.ajax({
-                url: '{% url 'update' %}',
-                success: function(data) {
-                $('#myTable').html(data);
-                }});
-       }, 1000);
-    });
+function refresh() {
+$.ajax({
+    url: '{% url 'update' %}',
+    success: function(data) {
+    $('#myTable').html(data);
+    }});
+}
+$( document ).ready(function() {
+    setInterval(function(){
+        refresh();
+   }, 5000);
+});
 </script>
